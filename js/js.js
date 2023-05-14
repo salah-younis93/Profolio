@@ -129,27 +129,42 @@ function scrollUp(){
 // start typing home
 
 
-// document.getElementById('my-form').addEventListener('submit', function(event) {
-// 	event.preventDefault();
+const contactForm = document.getElementById('my-form'),
+        contactName = document.getElementById('contact-name'),
+        contactEmail = document.getElementById('contact-email'),
+        contactPhone = document.getElementById('contact-hone'),
+        contactProject = document.getElementById('contact-project'),
+        contactMessage = document.getElementById('contact-message')
 
-// 	// get user input
-// 	var name = document.getElementById('name').value;
-// 	var email = document.getElementById('email').value;
-// 	var message = document.getElementById('message').value;
+        const sendEmail = (e) => {
+          e.preventDefault();
 
-// 	// send email
-// 	var xhr = new XMLHttpRequest();
-// 	xhr.open('POST', 'submit-form.php', true);
-// 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-// 	xhr.onreadystatechange = function() {
-// 		if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-// 			alert('Your message has been sent. Thank you!');
-// 		} else if (this.status !== 200) {
-// 			alert('Sorry, there was an error sending your message. Please try again later.');
-// 		}
-// 	};
-// 	xhr.send('name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email) + '&message=' + encodeURIComponent(message));
-// });
+          if (contactName.value === '' || contactEmail.value === '' || contactProject.value === '') {
+
+            contactMessage.classList.remove('color-blue')
+            contactMessage.classList.add('color-red')
+
+            contactMessage.textContent = "You Are Missing Something 😅"
+          } else {
+            emailjs.sendForm('service_xocj1kq','template_wh5bd8i','#my-form', '5Shs-dwC8v4no8pOo')
+            .then(() => {
+              contactMessage.classList.add('color-blue')
+              contactMessage.textContent = 'Message Sent ✅'
+              setTimeout(() => {
+                contactMessage.textContent = ''
+              }, 3000)
+            }, (error) => {
+              alert('OOPS! SOMETHING WENT WRONG...', error)
+            })
+            setTimeout(() => {
+              contactName.value = ''
+              contactEmail.value = ''
+              contactProject.value = ''
+            }, 3000)
+          }
+        }
+        contactForm.addEventListener('submit', sendEmail)
+
 
 
 
@@ -191,38 +206,38 @@ document.addEventListener("DOMContentLoaded",() => {
 // end typing home
 
 // start email
-let mess = document.getElementsByClassName("message-contact")[0];
-function sendEmail() {
-    Email.send({
-        SecureToken : "c3ebef4b-e9a1-4f27-99e3-aa2b18d93a23",
-        To : 'osamasalehdev@gmail.com',
-        From : "osamasalehdev@gmail.com",
-        Subject : "New message",
-        Body :  "Name : " + document.getElementById("name").value +
-                "<br> Email : " + document.getElementById("email").value +
-                "<br> Phone : " + document.getElementById("phone").value +
-                "<br> Message : " + document.getElementById("message").value 
-    }).then(
-        message => {
-            mess.style.display = "block";
-            if ( message === "OK") {
-                mess.innerHTML = "Your message was sent successfully .";
-            } else {
-                mess.innerHTML = message;
-            }
-            setTimeout(() => {
-                mess.style.display = "none"
-            } , 5000)
-        }
-    );
-}
-//footer
-function send () {
-    const email = document.getElementById('E-mail');
-    email.onsubmit = window.open('mailto:salahyouniswc@gmail.com?subject=subject&body=body')
-}
-let spanDate = document.getElementsByClassName("date")[0];
-let date = new Date();
-spanDate.innerHTML = date.getFullYear();
+// let mess = document.getElementsByClassName("message-contact")[0];
+// function sendEmail() {
+//     Email.send({
+//         SecureToken : "c3ebef4b-e9a1-4f27-99e3-aa2b18d93a23",
+//         To : 'osamasalehdev@gmail.com',
+//         From : "osamasalehdev@gmail.com",
+//         Subject : "New message",
+//         Body :  "Name : " + document.getElementById("name").value +
+//                 "<br> Email : " + document.getElementById("email").value +
+//                 "<br> Phone : " + document.getElementById("phone").value +
+//                 "<br> Message : " + document.getElementById("message").value 
+//     }).then(
+//         message => {
+//             mess.style.display = "block";
+//             if ( message === "OK") {
+//                 mess.innerHTML = "Your message was sent successfully .";
+//             } else {
+//                 mess.innerHTML = message;
+//             }
+//             setTimeout(() => {
+//                 mess.style.display = "none"
+//             } , 5000)
+//         }
+//     );
+// }
+// //footer
+// function send () {
+//     const email = document.getElementById('E-mail');
+//     email.onsubmit = window.open('mailto:salahyouniswc@gmail.com?subject=subject&body=body')
+// }
+// let spanDate = document.getElementsByClassName("date")[0];
+// let date = new Date();
+// spanDate.innerHTML = date.getFullYear();
 
-// 
+// // 
